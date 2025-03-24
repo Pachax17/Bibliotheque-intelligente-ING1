@@ -1,0 +1,91 @@
+/* Style global */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+/* Titre principal */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Conteneur principal */
+.container {
+    display: flex;
+    justify-content: center; /* Centre le contenu */
+    gap: 50px; /* Espace entre les blocs */
+    align-items: flex-start;
+}
+
+/* Formulaire */
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Alignement des champs */
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* Style des labels */
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Style des champs de saisie */
+.form-group input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style du bouton */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Section Liste des utilisateurs */
+.user-list {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+}
+
+.user-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.user-list li {
+    background: #e0e0e0;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 5px;
+}
