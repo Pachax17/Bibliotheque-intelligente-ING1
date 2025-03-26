@@ -20,6 +20,7 @@ CREATE TABLE Utilisateur (
   id INT PRIMARY KEY ,
   nom VARCHAR(50),
   prenom VARCHAR(50),
+  dateNaissance DATE,
   email VARCHAR(100) UNIQUE,
   motDePasse VARCHAR(255),
   typeUtilisateur ENUM('visiteur', 'lecteur', 'bibliothecaire', 'administrateur'),
