@@ -6,7 +6,7 @@ body {
 
 .header {
     padding: 20px;
-    background: url('https://cdn.pixabay.com/photo/2016/07/31/16/24/banner-1559400_1280.jpg') no-repeat center center;
+    background: url('https://dpc.fr/wp-content/uploads/banniere-cdi-cdr.jpg') no-repeat center center;
     background-size: cover;
     color: white;
     font-size: 2em;
@@ -15,7 +15,7 @@ body {
 }
 
 .nav {
-    background-color: red;
+    background-color: rgb(190, 18, 18);
     display: flex;
     justify-content: center;
     padding: 10px 0;
@@ -67,12 +67,12 @@ body {
 }
 
 .connect-btn {
-    background-color: #7CFC00;
+    background-color: rgb(190, 18, 18);
     color: white;
 }
 
 .signup-btn {
-    background-color: #0047AB;
+    background-color:#f90794ea;
     color: white;
 }
 
