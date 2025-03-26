@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliotheque Connectée</title>
+    <meta name=”author” content=”Groupe 3” />
+    <meta name=”description” content=”Projet DevWeb”/>
+    <link rel="stylesheet" href="stylegarde.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Bibliothèque Connectée</h1>
+    </div>
+    <div class="buttons">
+        <a href="connexion.html" class="connect-btn">Se Connecter</a>
+        <a href="inscription.html" class="signup-btn">S’inscrire</a>
+    </div>
+    <div class="nav">
+        <a href="agenda.html">Agenda</a>
+        <a href="Contact.html">Contact</a>
+        <a href="itinéraire.html">Itinéraire</a>
+    </div>
+    <div class="content">
+        <div class="search-container">
+            <input type="text" id="search-box" placeholder="Rechercher un livre..." onkeyup="search()">
+            <div id="results"></div>
+            <script>
+                function search() {
+                    let query = document.getElementById("search-box").value;
+                    if (query.length > 0) {
+                        fetch("search.php?query=" + query)
+                        .then(response => response.text())
+                        .then(data => {
+                            document.getElementById("results").innerHTML = data;
+                        });
+                    } else {
+                        document.getElementById("results").innerHTML = "";
+                    }
+                }
+            </script>
+        </div>
+        <h2>À propos de nous</h2>
+        <p>BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLAB</p>
+    </div>
+</body>
+</html>
