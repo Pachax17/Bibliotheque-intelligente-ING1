@@ -1,7 +1,10 @@
 # Biblioth-que-intelligente-ING1
 Projet DEV WEB ING1
 
-Pour lancer le site internet, il faut dans un premier temps lancer le fichier ProjetDevWebApplication.java à l'aide du bouton run (voir la photo)
+Pour lancer le site internet, il faut dans un premier temps lancer le fichier ProjetDevWebApplication.java à l'aide du bouton run (voir la photo):
+
+![image](https://github.com/user-attachments/assets/90ddd68d-cd7c-4e2c-bac5-3cde58604b1b)
+
 
 Il faudra ce rendre sur l'adresse suivante suivi de la page sur laquelle on veut aller :
 
