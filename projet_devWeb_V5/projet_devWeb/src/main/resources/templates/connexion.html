@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+    <h2>Connexion</h2>
+
+    <form th:action="@{/connexion}" method="post">
+        <label for="username">Email :</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <button type="submit">Se connecter</button>
+    </form>
+
+    <!-- ✅ Message si le compte n’est pas encore vérifié -->
+    <p th:if="${param.nonVerifie}" style="color:red;">
+        ❌ Votre compte n’est pas encore vérifié. Veuillez valider l’email reçu.
+    </p>
+    
+    <p th:if="${param.error}" style="color:red;" th:unless="${param.nonVerifie}">
+        ❌ Identifiants incorrects. Veuillez réessayer.
+    </p>
+    
+
+    <!-- ✅ Déconnexion réussie -->
+    <p th:if="${param.logout}" style="color:green;">
+        ✅ Vous avez été déconnecté avec succès.
+    </p>
+
+    <br>
+    <a href="/inscription">Pas encore inscrit ? Créer un compte</a>
+
+</body>
+</html>
