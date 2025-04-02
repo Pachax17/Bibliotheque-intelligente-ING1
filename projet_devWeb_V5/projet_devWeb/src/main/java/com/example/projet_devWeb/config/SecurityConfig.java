@@ -29,6 +29,7 @@ public class SecurityConfig {
             .authenticationProvider(authenticationProvider())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/inscription", "/connexion", "/verification", "/style.css", "/").permitAll()
+                .requestMatchers("/accueil", "/public/**").permitAll()
                 .requestMatchers("/utilisateur").authenticated()
                 .anyRequest().authenticated()
             )
