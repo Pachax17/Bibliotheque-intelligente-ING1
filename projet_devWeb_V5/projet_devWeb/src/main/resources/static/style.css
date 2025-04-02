@@ -8,17 +8,17 @@
 }
 
 body {
-    background-color: #b81717;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
-    height: 100vh;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    background-color: #fff;
+    background-color: #ffffffd4;
     padding: 10px;
     border-radius: 6px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
@@ -111,4 +111,109 @@ input[type="submit"] {
 
 a:hover { 
     text-decoration: underline;
+}
+
+.image-link {
+    all: unset;
+    display: flex;
+    width: 100px; /* Définir la largeur du lien, ou ajuster selon tes besoins */
+    height: 100px; /* Définir la hauteur de l'image de fond */
+}
+
+.background-image {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://dpc.fr/wp-content/uploads/banniere-cdi-cdr.jpg'); /* Remplace par le chemin de ton image */
+    background-size: cover; /* Cette option permet à l'image de couvrir tout l'élément */
+    background-position: center; /* Centrer l'image dans l'élément */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    cursor: pointer; /* Optionnel, rend l'élément cliquable comme un lien */
+}
+
+.image-link:hover .background-image {
+    opacity: 0.5; /* Effet au survol, optionnel */
+}
+
+
+/*PAGE DE GARDE*/
+
+.bodyGarde {
+    background-color: #ffffff;
+    display:block;
+}
+
+.headerGarde {
+    padding: 60px;
+    display:block;
+    background: url('https://dpc.fr/wp-content/uploads/banniere-cdi-cdr.jpg') no-repeat center center;
+    background-size: cover;
+    color: white;
+    font-size: 2em;
+    position: relative;
+}
+
+.navGarde {
+    background-color:  #e60050;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.navGarde a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 1.2em;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#search-box {
+    padding: 10px;
+    width: 400px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-align: center;
+    background: #ccc;
+}
+
+#results {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.buttonsGarde {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1em;
+}
+
+.connect-btn, .signup-btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.connect-btn {
+    background-color:  #e60050;
+    color: white;
+}
+
+.signup-btn {
+    background-color:#f90794ea;
+    color: white;
+}
+
+.contentGarde {
+    padding: 20px;
 }
