@@ -1,4 +1,7 @@
 
+-- pour jeter les anciennces tables 
+DROP TABLE IF EXISTS Objet;
+DROP TABLE IF EXISTS Salle;
 -- TABLES
 
 CREATE TABLE Livre (
@@ -25,16 +28,20 @@ CREATE TABLE Utilisateur (
 );
 
 CREATE TABLE Salle (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  nom VARCHAR(50),
-  capacite INT
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    capacite INT NOT NULL
 );
 
+
 CREATE TABLE Objet (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  nom VARCHAR(50),
-  idSalle INT,
-  FOREIGN KEY (idSalle) REFERENCES Salle(id)
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    derniere_interaction DATETIME,
+    etat_fonctionnement BOOLEAN NOT NULL,
+    etat_utilisation BOOLEAN NOT NULL,
+    salle_id BIGINT NOT NULL,
+    FOREIGN KEY (salle_id) REFERENCES Salle(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Utilisation (
