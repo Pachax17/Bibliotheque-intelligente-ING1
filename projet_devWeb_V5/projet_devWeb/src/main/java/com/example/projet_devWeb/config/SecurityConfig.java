@@ -31,6 +31,8 @@ public class SecurityConfig {
                 .requestMatchers("/inscription", "/connexion", "/verification", "/style.css", "/").permitAll()
                 .requestMatchers("/accueil", "/public/**").permitAll()
                 .requestMatchers("/utilisateur").authenticated()
+                .requestMatchers("/static/**", "/images/**", "/css/**", "/js/**").permitAll() //Acces aux documents dans static et images
+                .requestMatchers(HttpMethod.GET, "/**").permitAll() // Permet l'accès aux pages GET
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
