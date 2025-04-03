@@ -41,4 +41,8 @@ public class PageDeGardeController {
     public String afficherPageItineraire() {
         return "itineraire";  // Nom du template pour la page itinéraire
     }
+    @GetMapping("/Objets")
+    public String afficherPageObjets() {
+        return "Objets";  // Nom du template pour la page itinéraire
+    }
 }
