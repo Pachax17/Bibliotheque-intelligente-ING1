@@ -2,6 +2,13 @@
 -- pour jeter les anciennces tables 
 DROP TABLE IF EXISTS Objet;
 DROP TABLE IF EXISTS Salle;
+DROP TABLE IF EXISTS Livre;
+DROP TABLE IF EXISTS Utilisateur;
+DROP TABLE IF EXISTS Utilisation;
+DROP TABLE IF EXISTS ObjetConnecté;
+DROP TABLE IF EXISTS Reservation;
+DROP TABLE IF EXISTS Emprunt;
+
 -- TABLES
 
 CREATE TABLE Livre (
