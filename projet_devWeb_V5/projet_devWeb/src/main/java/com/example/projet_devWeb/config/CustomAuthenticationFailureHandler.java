@@ -1,7 +1,7 @@
 package com.example.projet_devWeb.config;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -14,12 +14,14 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     @Override
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response,
-                                        AuthenticationException exception) throws IOException {
+                                        AuthenticationException exception) throws IOException, ServletException {
 
-        if (exception instanceof CompteNonVerifieException) {
-            response.sendRedirect("/connexion?nonVerifie");
-        } else {
-            response.sendRedirect("/connexion?error");
+        String redirectUrl = "/connexion?error";
+
+        if ("NON_VERIFIE".equals(exception.getMessage())) {
+            redirectUrl = "/connexion?nonVerifie";
         }
+
+        response.sendRedirect(redirectUrl);
     }
 }
