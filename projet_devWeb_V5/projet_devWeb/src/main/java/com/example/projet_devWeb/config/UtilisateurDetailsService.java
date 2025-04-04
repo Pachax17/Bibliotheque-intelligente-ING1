@@ -18,7 +18,7 @@ public class UtilisateurDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé avec l’email : " + email));
 
         if (!utilisateur.isVerifie()) {
-            throw new UsernameNotFoundException("NON_VERIFIE");
+            throw new CompteNonVerifieException("NON_VERIFIE");
         }
 
         return new UtilisateurDetails(utilisateur);
