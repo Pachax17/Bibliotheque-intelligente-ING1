@@ -5,6 +5,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.example.projet_devWeb.model.Utilisateur;
+
 @Service
 public class EmailService {
 
@@ -13,9 +15,6 @@ public class EmailService {
 
     /**
      * Envoie un email de confirmation avec lien de vérification
-     * @param destinataire l'email du destinataire
-     * @param prenom le prénom à afficher
-     * @param token le token de vérification
      */
     public void envoyerEmailConfirmation(String destinataire, String prenom, String token) {
         new Thread(() -> {
@@ -38,6 +37,34 @@ public class EmailService {
                 mailSender.send(message);
             } catch (Exception e) {
                 System.err.println("❌ Erreur lors de l'envoi de l'email : " + e.getMessage());
+            }
+        }).start();
+    }
+
+    /**
+     * Envoie un email contenant le lien de réinitialisation du mot de passe
+     */
+    public void envoyerLienDeReset(Utilisateur utilisateur) {
+        new Thread(() -> {
+            try {
+                String sujet = "Réinitialisation de votre mot de passe";
+                String lien = "http://localhost:8080/reinitialisation?token=" + utilisateur.getToken();
+
+                String corps = "Bonjour " + utilisateur.getPrenom() + ",\n\n" +
+                        "Vous avez demandé à réinitialiser votre mot de passe.\n\n" +
+                        "Cliquez sur le lien ci-dessous pour créer un nouveau mot de passe :\n" +
+                        lien + "\n\n" +
+                        "Si vous n'êtes pas à l'origine de cette demande, ignorez simplement ce message.";
+
+                SimpleMailMessage message = new SimpleMailMessage();
+                message.setTo(utilisateur.getEmail());
+                message.setSubject(sujet);
+                message.setText(corps);
+                message.setFrom("Ma Bibliothèque - DevWeb <projetdevwebing@gmail.com>");
+
+                mailSender.send(message);
+            } catch (Exception e) {
+                System.err.println("❌ Erreur lors de l'envoi de l'email de réinitialisation : " + e.getMessage());
             }
         }).start();
     }
