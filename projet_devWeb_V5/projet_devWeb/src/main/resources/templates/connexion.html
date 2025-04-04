@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Connexion</title>
-    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
     <a href="/accueil" class="image-link">
@@ -22,23 +21,21 @@
         <button type="submit">Se connecter</button>
     </form>
 
-    <!-- ✅ Message si le compte n’est pas encore vérifié -->
+    <!-- ✅ Gestion des erreurs -->
     <p th:if="${param.nonVerifie}" style="color:red;">
         ❌ Votre compte n’est pas encore vérifié. Veuillez valider l’email reçu.
     </p>
-    
+
     <p th:if="${param.error}" style="color:red;" th:unless="${param.nonVerifie}">
         ❌ Identifiants incorrects. Veuillez réessayer.
     </p>
-    
 
-    <!-- ✅ Déconnexion réussie -->
     <p th:if="${param.logout}" style="color:green;">
         ✅ Vous avez été déconnecté avec succès.
     </p>
 
-    <br>
-    <a href="/inscription">Pas encore inscrit ? Créer un compte</a>
+    <p><a href="/mot-de-passe-oublie">Mot de passe oublié ?</a></p>
 
+    <a href="/inscription">Retour à l'inscription</a>
 </body>
 </html>
