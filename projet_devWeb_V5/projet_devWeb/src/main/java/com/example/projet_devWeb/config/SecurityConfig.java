@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.http.HttpMethod;
 
-
 @Configuration
 public class SecurityConfig {
 
@@ -30,12 +29,23 @@ public class SecurityConfig {
         http
             .authenticationProvider(authenticationProvider())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/inscription", "/connexion", "/verification", "/style.css", "/").permitAll()
-                .requestMatchers("/accueil", "/public/**").permitAll()
-                .requestMatchers("/utilisateur").authenticated()
+                .requestMatchers(
+                    "/", 
+                    "/connexion", 
+                    "/inscription", 
+                    "/verification", 
+                    "/mot-de-passe-oublie", 
+                    "/reinitialisation", 
+                    "/accueil", 
+                    "/style.css"
+                ).permitAll()
+
                 .requestMatchers("/static/**", "/images/**", "/css/**", "/js/**").permitAll() //Acces aux documents dans static et images
-                .requestMatchers(HttpMethod.GET, "/**").permitAll() // Permet l'accès aux pages GET
-                .anyRequest().authenticated()
+                 .requestMatchers(HttpMethod.GET, "/**").permitAll() // Permet l'accès aux pages GET
+                .requestMatchers("/utilisateur").hasAuthority("ADMINISTRATEUR")
+                .requestMatchers("/profil").authenticated()
+
+                .anyRequest().authenticated() // ✅ TOUJOURS EN DERNIER
             )
             .formLogin(form -> form
                 .loginPage("/connexion")
@@ -44,14 +54,16 @@ public class SecurityConfig {
                 .failureHandler(customFailureHandler)
                 .permitAll()
             )
-            .logout(logout -> logout.permitAll());
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/connexion?logout") // Redirige après déconnexion
+                .permitAll()
+            )
+            .exceptionHandling(exception -> 
+                exception.accessDeniedPage("/acces-refuse")
+            );
 
         return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -60,6 +72,11 @@ public class SecurityConfig {
         provider.setUserDetailsService(utilisateurDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
