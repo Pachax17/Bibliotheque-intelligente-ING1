@@ -32,6 +32,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         System.out.println("✅ Connexion réussie pour : " + email);
 
         // 🔁 Redirection après connexion
-        response.sendRedirect("/utilisateur");
+        response.sendRedirect("/accueil");
     }
 }
