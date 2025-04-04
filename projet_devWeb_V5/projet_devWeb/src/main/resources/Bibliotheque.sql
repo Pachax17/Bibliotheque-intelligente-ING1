@@ -32,6 +32,10 @@ CREATE TABLE Salle (
 
 CREATE TABLE Objet (
   id INT PRIMARY KEY AUTO_INCREMENT,
+  nom VARCHAR(255) NOT NULL,
+  derniere_interaction DATETIME,
+  etat_fonctionnement BOOLEAN NOT NULL,
+  etat_utilisation BOOLEAN NOT NULL,
   nom VARCHAR(50),
   idSalle INT,
   FOREIGN KEY (idSalle) REFERENCES Salle(id)
