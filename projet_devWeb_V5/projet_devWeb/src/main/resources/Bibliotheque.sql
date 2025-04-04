@@ -26,8 +26,8 @@ CREATE TABLE Utilisateur (
 
 CREATE TABLE Salle (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  nom VARCHAR(50),
-  capacite INT
+  nom VARCHAR(255) NOT NULL,
+  capacite INT NOT NULL
 );
 
 CREATE TABLE Objet (
