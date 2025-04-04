@@ -30,13 +30,6 @@ public class UtilisateurController {
     @Autowired
     private PasswordEncoder passwordEncoder; // ajoute cette ligne
 
-    // Affiche la page d'inscription
-    @GetMapping("/inscription")
-    public String afficherFormulaireInscription(Model model) {
-        model.addAttribute("utilisateur", new Utilisateur());
-        return "inscription";
-    }
-
 
     // Enregistre un nouvel utilisateur
     @PostMapping("/inscription")
@@ -81,11 +74,6 @@ public class UtilisateurController {
         }
 
         return "confirmation"; // confirmation.html
-    }
-
-    @GetMapping("/connexion")
-    public String afficherFormulaireConnexion() {
-        return "connexion";
     }
 
 
