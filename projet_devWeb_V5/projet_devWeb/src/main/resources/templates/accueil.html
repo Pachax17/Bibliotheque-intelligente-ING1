@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque Connectée</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body class="bodyGarde">
+
+    <div class="headerGarde">
+        <h1>Bibliothèque Connectée</h1>
+    </div>
+
+    <div class="buttonsGarde">
+        <!-- ✅ Non connecté -->
+        <div th:if="${not #authorization.expression('isAuthenticated()')}">
+            <a href="/connexion" class="connect-btn">Se Connecter</a>
+            <a href="/inscription" class="signup-btn">S’inscrire</a>
+        </div>
+
+        <!-- ✅ Connecté -->
+        <div th:if="${#authorization.expression('isAuthenticated()')}">
+            <a href="/profil" class="btn-unified btn-profil">👤 Profil</a>
+
+            <!-- ✅ Déconnexion sécurisée -->
+            <form th:action="@{/logout}" method="post" class="logout-form">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <button type="submit" class="btn-unified btn-deconnexion">Déconnexion</button>
+            </form>
+            
+            <!-- ✅ Admin uniquement -->
+            <a th:if="${#authorization.expression('hasAuthority(''ADMINISTRATEUR'')')}" href="/administrateur" class="btn-unified btn-admin">⚙ Admin</a>
+        </div>
+    </div>
+
+    <div class="navGarde">
+        <a href="/agenda">Agenda</a>
+        <a href="/contact">Contact</a>
+        <a href="/itineraire">Itinéraire</a>
+        <a href="/Objets">Objets Connectés</a>
+    </div>
+
+    <div class="contentGarde">
+        <div class="search-container">
+            <input type="text" id="search-box" placeholder="Rechercher un livre..." onkeyup="search()">
+            <div id="results"></div>
+        </div>
+
+        <script>
+            function search() {
+                let query = document.getElementById("search-box").value;
+                if (query.length > 0) {
+                    fetch("search.php?query=" + query)
+                        .then(response => response.text())
+                        .then(data => {
+                            document.getElementById("results").innerHTML = data;
+                        });
+                } else {
+                    document.getElementById("results").innerHTML = "";
+                }
+            }
+        </script>
+
+        <h2>À propos de nous</h2>
+        <p style="text-indent: 30px;">Bienvenue dans notre bibliothèque, un lieu où la passion pour la lecture et la découverte prend vie. Ici, chaque livre est une porte ouverte vers de nouveaux horizons, chaque page une invitation à explorer, à apprendre et à rêver. Nous vous offrons un accès à une riche collection de livres, de documents et de ressources numériques, soigneusement sélectionnés pour nourrir votre curiosité et enrichir vos connaissances. Naviguez à votre rythme, laissez-vous guider par vos envies et trouvez des trésors littéraires qui sauront éveiller votre imagination. Que vous soyez à la recherche de savoir, de détente ou d’inspiration, notre bibliothèque est un espace où chaque visite est une nouvelle aventure.</p>
+    </div>
+
+</body>
+</html>
