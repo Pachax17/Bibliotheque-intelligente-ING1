@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda - Apocalypse</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff7f3c0;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: none;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-bottom: auto;
+        }
+        .header {
+            font-family: 'Playfair Display', serif;
+            font-size: 46px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 50px;
+        }
+        .close {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            font-size: 24px;
+            text-decoration: none;
+            color: black;
+        }
+        .image-container {
+            position: relative;
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .event-location img {
+            vertical-align: middle;
+            margin-top: -130px;
+        }
+        .location-image {
+            height: 160px;
+            width: auto;
+            vertical-align: middle;
+            margin-top: -130px;
+        }
+        .badge {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background: rgba(98, 25, 44, 0.9);
+            color: white;
+            padding: 20px 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .content {
+            text-align: left;
+            margin-top: 40px;
+        }
+        .category {
+            color: #6c247b;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 17px;
+            margin-bottom: 20px;
+            display: block;
+            text-decoration: underline;
+        }
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+        }
+        .date {
+            font-size: 16px;
+            color: #94680d;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .more {
+            color: #6c247b;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .event-list {
+            width: 100%;
+            max-width: none;
+            padding: 0 20px;
+            box-sizing: border-box;
+            margin-top: auto;
+        }
+        .event {
+            border-bottom: 1px solid #ccc;
+            padding: 20px 0;
+        }
+        .event:last-child {
+            border-bottom: none;
+        }
+
+        .event-location {
+            font-weight: bold;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">AGENDA</div>
+        <a href="#" class="close">&times;</a>
+        <div class="image-container">
+            <img src="image.png" alt="img0">
+            <div class="badge">EN CE MOMENT</div>
+        </div>
+        <div class="content">
+            <div class="category" style="font-size: 22px;">EXPOSITIONS</div>
+            <div class="title" style="font-size: 40px;">Apocalypse</div>
+            <div class="subtitle" style="font-size: 21px;">Hier et demain</div>
+            <div class="date" style="font-size: 21px;">6 mai 2025 → 8 juin 2025</div>
+            <div class="more" style="font-size: 18px;">EN SAVOIR +</div>
+            <hr style="border: none; border-top: 3px solid #000; margin-top: 20px;">
+        </div>
+    </div>
+    <div class="event-list">
+        <div class="event">
+            <div class="badge" style="position: static; display: inline-block; background: rgba(98, 25, 44, 0.9); color: white; padding: 12px 30px; font-size: 20px; font-weight: bold; border-radius: 4px; margin-bottom: 30px;">À VENIR</div>
+            <div class="category">EXPOSITIONS</div>
+            <div class="title">Gabriele Münter</div>
+            <div class="subtitle">Peindre sans détours</div>
+            <div class="date">9 juin 2025 → 31 juin 2025</div>
+            <div class="more">EN SAVOIR +</div>
+            <div class="event-location">
+                <img src="img1.jpg" alt="img1" class="location-image">
+            </div>
+        </div>
+        <div class="event">
+            <div class="category">EXPOSITIONS</div>
+            <div class="title">Matisse et Marguerite</div>
+            <div class="subtitle">Le regard d'un père</div>
+            <div class="date">3 juillet 2025 → 18 août 2025</div>
+            <div class="more">EN SAVOIR +</div>
+            <div class="event-location">
+                <img src="img2.png" alt="img2" class="location-image">
+            </div>
+        </div>
+        <div class="event">
+            <div class="category">EXPOSITIONS</div>
+            <div class="title">Eugène Boudin</div>
+            <div class="subtitle">Le père de l'impressionnisme</div>
+            <div class="date">26 août 2025 → 2 octobre 2025</div>
+            <div class="more">EN SAVOIR +</div>
+            <div class="event-location">
+                <img src="img3.jpg" alt="img3" class="location-image">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
