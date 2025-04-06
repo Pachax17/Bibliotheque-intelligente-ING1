@@ -1,34 +1,44 @@
 package com.example.projet_devWeb.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Objet")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Objet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String nom;
 
-    @Column(name = "derniere_interaction")
-    private LocalDateTime derniereInteraction;
+    private String description; // ✅ Pour afficher sur les pages détails et modifications
 
-    @Column(nullable = false)
-    private boolean etatFonctionnement;
+    private String type;
 
-    @Column(nullable = false)
-    private boolean etatUtilisation;
+    private boolean actif = false; // ✅ Pour savoir si l’objet est activé ou non
 
     @ManyToOne
-    @JoinColumn(name = "salle_id", nullable = false)
+    @JoinColumn(name = "idSalle")
     private Salle salle;
 
-    // Getters et Setters
+    @ManyToOne
+    @JoinColumn(name = "idUtilisateur")
+    private Utilisateur utilisateur; // ✅ Qui a proposé l’objet
+
+    public Objet() {
+    }
+
+    // 🔧 Constructeur complet
+    public Objet(String nom, String description, String type, Salle salle, Utilisateur utilisateur) {
+        this.nom = nom;
+        this.description = description;
+        this.type = type;
+        this.salle = salle;
+        this.utilisateur = utilisateur;
+        this.actif = false; // Par défaut désactivé
+    }
+
+    // ✅ Getters & Setters
     public Long getId() {
         return id;
     }
@@ -45,28 +55,28 @@ public class Objet {
         this.nom = nom;
     }
 
-    public LocalDateTime getDerniereInteraction() {
-        return derniereInteraction;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDerniereInteraction(LocalDateTime derniereInteraction) {
-        this.derniereInteraction = derniereInteraction;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public boolean isEtatFonctionnement() {
-        return etatFonctionnement;
+    public String getType() {
+        return type;
     }
 
-    public void setEtatFonctionnement(boolean etatFonctionnement) {
-        this.etatFonctionnement = etatFonctionnement;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public boolean isEtatUtilisation() {
-        return etatUtilisation;
+    public boolean isActif() {
+        return actif;
     }
 
-    public void setEtatUtilisation(boolean etatUtilisation) {
-        this.etatUtilisation = etatUtilisation;
+    public void setActif(boolean actif) {
+        this.actif = actif;
     }
 
     public Salle getSalle() {
@@ -75,5 +85,13 @@ public class Objet {
 
     public void setSalle(Salle salle) {
         this.salle = salle;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 }
