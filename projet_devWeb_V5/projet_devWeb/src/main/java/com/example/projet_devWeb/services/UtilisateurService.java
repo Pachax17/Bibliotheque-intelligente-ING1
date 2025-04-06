@@ -44,4 +44,10 @@ public class UtilisateurService {
             utilisateurRepository.save(utilisateur);
         });
     }
+
+    public Utilisateur trouverParEmail(String email) {
+        return utilisateurRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé pour l'email : " + email));
+    }
+    
 }
