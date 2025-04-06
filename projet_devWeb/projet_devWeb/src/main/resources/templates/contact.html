@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bibliothèque Connectée - Contact</title>
-    <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -177,96 +178,79 @@
             margin-top: 30px;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Bibliothèque Connectée</h1>
-        </div>
-    </header>
-
-    <nav class="menu">
-        <a href="accueil.html">Accueil</a>
-        <a href="agenda.html">Agenda</a>
-        <a href="itinéraire.html">Itinéraire</a>
-        <a href="objects.html">Objets Connectés</a>
-    </nav>
-
+<header>
     <div class="container">
-        <div class="search-bar">
-            <input type="text" placeholder="Rechercher un livre...">
-        </div>
+        <h1>Bibliothèque Connectée</h1>
+    </div>
+</header>
 
-        <h2>Contact</h2>
+<nav class="menu">
+    <a href="accueil.html">Accueil</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="itinéraire.html">Itinéraire</a>
+    <a href="objects.html">Objets Connectés</a>
+</nav>
 
-        <div class="contact-info">
-            <div class="contact-card">
-                <h3>Bibliothèque</h3>
-                <div class="contact-method">
-                    <i class="fas fa-phone"></i>
-                    <span>Téléphone : 01 34 25 60 00</span>
-                </div>
-                <div class="contact-method">
-                    <i class="fas fa-envelope"></i>
-                    <span>Email : bibliotheque@cyu.fr</span>
-                </div>
-                <div class="contact-method">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Adresse : Mail des Cerclades, 95000 Cergy</span>
-                </div>
-            </div>
+<div class="container">
+    <div class="search-bar">
+        <input type="text" placeholder="Rechercher un livre...">
+    </div>
 
-            <div class="contact-card">
-                <h3>Administration</h3>
-                <div class="contact-method">
-                    <i class="fas fa-phone"></i>
-                    <span>Directeur : 01 34 25 60 01</span>
-                </div>
-                <div class="contact-method">
-                    <i class="fas fa-phone"></i>
-                    <span>Responsable collections : 01 34 25 60 02</span>
-                </div>
-                <div class="contact-method">
-                    <i class="fas fa-phone"></i>
-                    <span>Service technique : 01 34 25 60 03</span>
-                </div>
+    <h2>Contact</h2>
+
+    <div class="contact-info">
+        <div class="contact-card">
+            <h3 th:text="${biblioContact.titre}">Bibliothèque</h3>
+            <div class="contact-method" th:each="m : ${biblioContact.moyens}">
+                <i class="fas" th:classappend="' ' + ${m.icon}"></i>
+                <span th:text="${m.texte}"></span>
             </div>
         </div>
 
-        <div class="contact-form">
-            <h3>Nous contacter</h3>
-            <form>
-                <div class="form-group">
-                    <label for="name">Nom complet</label>
-                    <input type="text" id="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="subject">Sujet</label>
-                    <input type="text" id="subject" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Envoyer le message</button>
-            </form>
-        </div>
-
-        <div class="about">
-            <h3>À propos de nous</h3>
-            <p>Bienvenue dans notre bibliothèque, un lieu où la passion pour la lecture et la découverte prend vie. Ici, chaque livre est une porte ouverte vers de nouveaux horizons, chaque page une invitation à explorer, à apprendre et à rêver. Nous vous offrons un accès à une riche collection de livres, de documents et de ressources numériques, soigneusement sélectionnés pour nourrir votre curiosité et enrichir vos connaissances. Naviguez à votre rythme, laissez-vous guider par vos envies et trouvez des trésors littéraires qui sauront éveiller votre imagination. Que vous soyez à la recherche de savoir, de détente ou d'inspiration, notre bibliothèque est un espace où chaque visite est une nouvelle aventure.</p>
+        <div class="contact-card">
+            <h3 th:text="${adminContact.titre}">Administration</h3>
+            <div class="contact-method" th:each="m : ${adminContact.moyens}">
+                <i class="fas" th:classappend="' ' + ${m.icon}"></i>
+                <span th:text="${m.texte}"></span>
+            </div>
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 Bibliothèque Connectée - Tous droits réservés</p>
-        </div>
-    </footer>
+    <div class="contact-form">
+        <h3>Nous contacter</h3>
+        <form method="post" th:action="@{/contact}" th:object="${message}">
+            <div class="form-group">
+                <label for="name">Nom complet</label>
+                <input type="text" id="name" th:field="*{nom}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" th:field="*{email}" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Sujet</label>
+                <input type="text" id="subject" th:field="*{sujet}" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" th:field="*{contenu}" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Envoyer le message</button>
+        </form>
+    </div>
+
+    <div class="about">
+        <h3>À propos de nous</h3>
+        <p>Bienvenue dans notre bibliothèque, un lieu où la passion pour la lecture et la découverte prend vie...</p>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2023 Bibliothèque Connectée - Tous droits réservés</p>
+    </div>
+</footer>
 </body>
 </html>
