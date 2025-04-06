@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail de l’objet</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body class="bodyGarde">
+
+<div class="headerGarde">
+    <h1>🔎 Détail de l’objet</h1>
+</div>
+
+<div class="contentGarde">
+    <div class="admin-card">
+        <h2 th:text="${objet.nom}">Nom</h2>
+
+        <p><strong>Description :</strong> <span th:text="${objet.description}">Description</span></p>
+        <p><strong>Salle :</strong> <span th:text="${objet.salle.nom}">Salle</span></p>
+
+        <div>
+            <p><strong>Type :</strong></p>
+            <div th:if="${#authorization.expression('hasAuthority(''AVANCE'')')}">
+                <form th:action="@{'/Objets/' + ${objet.id} + '/modifier'}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <input type="hidden" name="nom" th:value="${objet.nom}" />
+                    <input type="hidden" name="description" th:value="${objet.description}" />
+                    <input type="hidden" name="salle.id" th:value="${objet.salle.id}" />
+                    <input type="hidden" name="actif" th:value="${objet.actif}" />
+
+                    <select name="type">
+                        <option value="Lumiere" th:selected="${objet.type == 'Lumiere'}">Lumière</option>
+                        <option value="Temperature" th:selected="${objet.type == 'Temperature'}">Température</option>
+                        <option value="Visuel" th:selected="${objet.type == 'Visuel'}">Visuel</option>
+                    </select>
+                    <button type="submit" class="connect-btn">🔄 Modifier</button>
+                </form>
+            </div>
+            <p th:unless="${#authorization.expression('hasAuthority(''AVANCE'')')}" th:text="${objet.type}">Type</p>
+        </div>
+
+        <p>
+            <strong>État :</strong>
+            <span th:if="${objet.actif}" style="color: green;">✅ Activé</span>
+            <span th:unless="${objet.actif}" style="color: red;">⛔ Désactivé</span>
+        </p>
+
+        <!-- Activation si non actif -->
+        <div th:if="${#authorization.expression('isAuthenticated()')}">
+            <form th:action="@{'/Objets/' + ${objet.id} + '/etat'}" method="post" th:if="${!objet.actif}">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <input type="hidden" name="actif" value="true" />
+                <button type="submit" class="connect-btn">⚡ Activer</button>
+            </form>
+            <p th:if="${objet.actif}" style="font-style: italic;">Cet objet est déjà activé. Vous ne pouvez pas le désactiver.</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a href="/Objets" class="connect-btn">⬅ Retour à la liste</a>
+    </div>
+</div>
+
+</body>
+</html>

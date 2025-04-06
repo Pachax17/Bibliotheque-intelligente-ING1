@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Objets</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .admin-container {
+            max-width: 900px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .admin-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .admin-card {
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 70%;
+            cursor: pointer;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+
+        .admin-card:hover {
+            background-color: #eaeaea;
+        }
+
+        .admin-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #e60050;
+            color: white;
+        }
+
+        .btn:hover {
+            background-color: #c2003d;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div class="admin-container">
+    <h1 class="admin-title">🧰 Gestion des Objets</h1>
+
+    <h2>Liste des Objets</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Salle</th>
+            <th>Ajouté par</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="objet : ${objets}">
+            <td th:text="${objet.id}"></td>
+            <td th:text="${objet.nom}"></td>
+            <td>
+                <span th:if="${objet.salle != null}" th:text="${objet.salle.nom}">Salle</span>
+                <span th:unless="${objet.salle != null}">Non attribuée</span>
+            </td>
+            <td>
+                <span th:if="${objet.utilisateur != null}" th:text="${objet.utilisateur.email}">Email</span>
+                <span th:unless="${objet.utilisateur != null}">Non disponible</span>
+            </td>
+            <td>
+                <a th:href="@{/admin/objets/edit/{id}(id=${objet.id})}" class="btn">Modifier</a>
+                <a th:href="@{/admin/objets/delete/{id}(id=${objet.id})}" class="btn" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

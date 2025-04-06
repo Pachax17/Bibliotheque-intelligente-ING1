@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des utilisateurs</title>
+</head>
+<body>
+<h2>Utilisateurs enregistrés :</h2>
+<table>
+    <tr>
+        <th>ID</th><th>Nom</th><th>Prénom</th><th>Email</th><th>Sexe</th><th>Date_Naissance</th><th>Date_Incription</th><th>Vérifié</th><th>Derniere_Connexion</th><th>Points</th><th>Role</th>
+    </tr>
+    <tr th:each="u : ${utilisateur}">
+        <td th:text="${u.id}"></td>
+        <td th:text="${u.nom}"></td>
+        <td th:text="${u.prenom}"></td>
+        <td th:text="${u.email}"></td>
+        <td th:text="${u.sexe}"></td>
+        <td th:text="${u.dateNaissance}"></td>
+        <td th:text="${u.dateInscription}"></td>
+        <td>
+            <span th:if="${u.verifie}" style="color:green;">✔️</span>
+            <span th:if="${!u.verifie}" style="color:red;">❌</span>
+        </td>
+        <td th:text="${u.derniereConnexion}"></td>
+        <td th:text="${u.points}"></td>
+        <td th:text="${u.role}"></td>
+    </tr>
+</table>
+</body>
+</html>
