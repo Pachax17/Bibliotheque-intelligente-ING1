@@ -41,11 +41,24 @@ public class Utilisateur {
     @Column(name = "role")
     private Role role = Role.SIMPLE;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "niveau")
+    private Niveau niveau = Niveau.DEBUTANT;
+
+
     // Enum pour les rôles
     public enum Role {
         SIMPLE,
         AVANCE,
         ADMINISTRATEUR
+    }
+
+    //enum niveau
+    public enum Niveau {
+        DEBUTANT,
+        INTERMEDIAIRE,
+        AVANCE,
+        EXPERT
     }
 
     // ---------------- Getters & Setters ----------------
@@ -152,5 +165,13 @@ public class Utilisateur {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Niveau getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(Niveau niveau) {
+        this.niveau = niveau;
     }
 }
