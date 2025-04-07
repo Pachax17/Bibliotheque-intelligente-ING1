@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eugène</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fff7f3c0;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .header {
+      font-family: 'Playfair Display', serif;
+      font-size: 46px;
+      font-weight: bold;
+      text-align: left;
+      margin-bottom: 50px;
+    }
+
+    .close {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      font-size: 24px;
+      text-decoration: none;
+      color: black;
+    }
+
+    .image-container {
+      position: relative;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .badge {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: rgba(98, 25, 44, 0.9);
+      color: white;
+      padding: 20px 30px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .content {
+      text-align: left;
+      margin-top: 40px;
+    }
+
+    .category {
+      color: #6c247b;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 17px;
+      margin-bottom: 20px;
+      display: block;
+      text-decoration: underline;
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #666;
+    }
+
+    .date {
+      font-size: 16px;
+      color: #94680d;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 60px;
+      align-items: flex-start;
+    }
+
+    .text-block, .image-block {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .section img {
+      width: 100%;
+      height: auto;
+    }
+
+    .caption {
+      font-size: 14px;
+      font-style: italic;
+      margin-top: 8px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .more {
+      color: #000000;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 10px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">AGENDA</div>
+    <a href="#" class="close">&times;</a>
+    <div class="image-container">
+      <img src="eugene1.jpg" alt="img1">
+      <div class="badge">À VENIR</div>
+    </div>
+    <div class="content">
+      <div class="category" style="font-size: 22px;">EXPOSITIONS</div>
+      <div class="title" style="font-size: 40px;">Eugène Boudin</div>
+      <div class="subtitle" style="font-size: 21px;">Le père de l'impressionnisme</div>
+      <div class="date" style="font-size: 21px;">26 août 2025 → 2 octobre 2025</div>
+      <div class="more" style="font-size: 22px;">TARIF : 8€ ET GRATUIT POUR LES MOINS DE 25 ANS</div>
+      <hr style="border: none; border-top: 3px solid #000; margin-top: 20px;">
+      <p style="margin-top: 10px; font-size: 22px;">La bibliothèque présente l'exposition « Eugène Boudin, le père de l'impressionnisme : une collection particulière ». Cet événement, sous le commissariat de l'historien de l'art Laurent Manœuvre, réunit 80 œuvres provenant de la prestigieuse collection de Yann Guyonvarch, 10 toiles de l'institution parisienne ainsi que plusieurs prêts du musée des Beaux-Arts d'Agen et du musée d'art moderne André Malraux du Havre.</p>
+
+      <div class="section">
+        <div class="text-block">
+          <h2>L'EXPOSITION EN BREF</h2>
+          <p>
+            Son parcours en 8 sections permet de découvrir l'évolution de la carrière de Boudin (1824-1898), depuis ses premiers paysages normands jusqu'aux ultimes marines du Midi ou de Venise, et de le suivre en Bretagne, à Bordeaux, dans le Nord, en Belgique ou aux Pays-Bas, au travers d'esquisses comme de peintures ambitieuses destinées au Salon.
+          </p>
+          <p>
+            Les œuvres de la collection Guyonvarch sont mises en correspondance avec le fonds du musée Marmottan Monet, afin de mettre en lumière le dialogue entre Boudin et celui qui fut son principal élève et ami Claude Monet. 
+          </p>
+        </div>
+        <div class="image-block">
+          <img src="eugene2.png" alt="img2">
+          <p class="caption">
+            <em>La pointe du Toulinguet</em>, Camaret, Eugène Boudin, 1873
+          </p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="image-block">
+          <img src="eugene3.jpg" alt="img3">
+          <p class="caption">
+            <em>La plage à Trouville</em>, Saint-Petersbourg, Eugène Boudin, 1893
+          </p>
+        </div>
+        <div class="text-block">
+          <h2>LE TEMPS DE L'IMPRESSIONNISME</h2>
+          <p>
+            Grâce à la participation des archives Durand-Ruel, les relations des deux artistes avec celui qui fut leur principal marchand sont également évoquées. Connu pour ses marines et ses scènes de plage, Eugène Boudin fut l'un des premiers artistes français à poser son chevalet hors de l'atelier pour réaliser des paysages. 
+          </p>
+          <p>
+            Dans ses nombreux tableaux, il s'est tout particulièrement attaché au rendu des éléments et des effets atmosphériques. Il a ainsi été l'un des initiateurs d'une vision renouvelée de la nature, précédant dans cette démarche les impressionnistes et Claude Monet, qui écrivait à la fin de sa vie : « Je dois tout à Boudin »
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
