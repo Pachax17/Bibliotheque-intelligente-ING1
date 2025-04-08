@@ -107,8 +107,12 @@
                 <span th:unless="${objet.salle != null}">Non attribuée</span>
             </td>
             <td>
-                <span th:if="${objet.utilisateur != null}" th:text="${objet.utilisateur.email}">Email</span>
-                <span th:unless="${objet.utilisateur != null}">Non disponible</span>
+                <!-- ✅ Evite le chargement d’un utilisateur supprimé -->
+                <span th:if="${objet.utilisateur != null and objet.utilisateur.email != null}"
+                      th:text="${objet.utilisateur.email}">Email</span>
+                <span th:unless="${objet.utilisateur != null and objet.utilisateur.email != null}">
+                    Non disponible
+                </span>
             </td>
             <td class="btn-actions">
                 <a th:href="@{'/administrateur/objet/' + ${objet.id} + '/modifier'}" class="btn">✏️ Modifier</a>
