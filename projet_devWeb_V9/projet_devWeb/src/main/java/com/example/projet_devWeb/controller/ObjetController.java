@@ -67,6 +67,15 @@ public class ObjetController {
         if (type == null) type = List.of();
 
         List<Objet> objets = objetService.getObjetsFiltres(type, salle);
+        objets.forEach(objet -> {
+            if (objet.getUtilisateur() != null) {
+                objet.getUtilisateur().getEmail(); // force le chargement
+            }
+            if (objet.getSalle() != null) {
+                objet.getSalle().getNom(); // force le chargement
+            }
+        });
+
         List<String> types = List.of("Lumiere", "Temperature", "Visuel");
         List<String> nomsSalles = salleRepository.findAll().stream().map(Salle::getNom).collect(Collectors.toList());
 
