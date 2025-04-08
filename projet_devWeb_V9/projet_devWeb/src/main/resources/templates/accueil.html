@@ -36,34 +36,17 @@
 
     <div class="navGarde">
         <a href="/agenda">Agenda</a>
-        <a href="/contact">Contact</a>
         <a href="/itineraire">Itinéraire</a>
         <a href="/Objets">Objets Connectés</a>
     </div>
 
     <div class="contentGarde">
-        <div class="search-container">
-            <input type="text" id="search-box" placeholder="Rechercher un livre..." onkeyup="search()">
-            <div id="results"></div>
-        </div>
-
-        <script>
-            function search() {
-                let query = document.getElementById("search-box").value;
-                if (query.length > 0) {
-                    fetch("search.php?query=" + query)
-                        .then(response => response.text())
-                        .then(data => {
-                            document.getElementById("results").innerHTML = data;
-                        });
-                } else {
-                    document.getElementById("results").innerHTML = "";
-                }
-            }
-        </script>
-
         <h2>À propos de nous</h2>
         <p style="text-indent: 30px;">Bienvenue dans notre bibliothèque, un lieu où la passion pour la lecture et la découverte prend vie. Ici, chaque livre est une porte ouverte vers de nouveaux horizons, chaque page une invitation à explorer, à apprendre et à rêver. Nous vous offrons un accès à une riche collection de livres, de documents et de ressources numériques, soigneusement sélectionnés pour nourrir votre curiosité et enrichir vos connaissances. Naviguez à votre rythme, laissez-vous guider par vos envies et trouvez des trésors littéraires qui sauront éveiller votre imagination. Que vous soyez à la recherche de savoir, de détente ou d’inspiration, notre bibliothèque est un espace où chaque visite est une nouvelle aventure.</p>
+        <br>
+        <h2>Contact</h2>
+        <p> Adresse email:<a href="mailto:projetdevwebing@gmail.com"> projetdevwebing@gmail.com</a></p>
+        <p> Téléphone : 06 00 00 00 00</p>
     </div>
 
 </body>
