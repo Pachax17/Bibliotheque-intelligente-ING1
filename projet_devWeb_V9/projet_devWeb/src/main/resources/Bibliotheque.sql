@@ -1,3 +1,4 @@
+USE Bibliotheque;
 
 CREATE TABLE IF NOT EXISTS Livre (
   id INT PRIMARY KEY,
@@ -76,9 +77,9 @@ CREATE TABLE IF NOT EXISTS Emprunt (
 );
 
 CREATE TABLE IF NOT EXISTS HistoriqueActivation (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    utilisateur_id BIGINT,
-    objet_id BIGINT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    utilisateur_id INT,
+    objet_id INT,
     dateDebut DATETIME,
     dateFin DATETIME,
     FOREIGN KEY (utilisateur_id) REFERENCES Utilisateur(id),
@@ -88,11 +89,11 @@ CREATE TABLE IF NOT EXISTS HistoriqueActivation (
 
 
 CREATE TABLE IF NOT EXISTS activitetracker (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     connexionsAujourdHui INT DEFAULT 0,
     activationsAujourdHui INT DEFAULT 0,
     dateReset DATETIME,
-    utilisateur_id BIGINT,
+    utilisateur_id INT,
     CONSTRAINT fk_utilisateur_tracker FOREIGN KEY (utilisateur_id)
         REFERENCES utilisateur(id)
         ON DELETE CASCADE
@@ -101,8 +102,8 @@ CREATE TABLE IF NOT EXISTS activitetracker (
 
 
 CREATE TABLE IF NOT EXISTS DemandeRole (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    utilisateur_id BIGINT NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    utilisateur_id INT NOT NULL,
     traitee BOOLEAN DEFAULT FALSE,
     dateDemande DATETIME DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_utilisateur FOREIGN KEY (utilisateur_id) REFERENCES Utilisateur(id)
@@ -112,6 +113,29 @@ CREATE TABLE IF NOT EXISTS DemandeRole (
 
 -- Insertion d'une salle
 
+INSERT IGNORE INTO salle VALUES (2, 'révision',15);
+
+
+ALTER TABLE Utilisateur ADD demande_role_avance BOOLEAN DEFAULT FALSE;
+ALTER TABLE Objet ADD actif BOOLEAN DEFAULT false;
+ALTER TABLE Objet ADD COLUMN description VARCHAR(255);
+ALTER TABLE Objet ADD COLUMN intensiteLuminosite INT;
+ALTER TABLE Objet ADD COLUMN luminosite INT;  -- ou un autre type si nécessaire
+ALTER TABLE Objet ADD COLUMN temperature DOUBLE;
+ALTER TABLE Objet ADD COLUMN idUtilisateur INT;
+ALTER TABLE Objet
+ADD CONSTRAINT FK_Objet_Utilisateur
+FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur(id);
+ALTER TABLE Objet
+ADD COLUMN idUtilisateurActivant INT;
+ALTER TABLE Objet
+ADD CONSTRAINT FK_Objet_UtilisateurActivant
+FOREIGN KEY (idUtilisateurActivant) REFERENCES Utilisateur(id);
+
+ALTER TABLE DemandeAjoutObjet ADD COLUMN type VARCHAR(255);  -- Ajustez le type de données selon vos besoins
+
+
+
 
 -- Insertion d’un utilisateur AVANCE
 INSERT IGNORE INTO Utilisateur (id, nom, prenom, email, motDePasse, sexe, dateNaissance, role, verifie)
@@ -119,4 +143,4 @@ VALUES (1, 'Martin', 'Paul', 'paul.martin@example.com', 'password', 'Homme', '19
 
 -- Insertion d’une demande d’ajout d’objet
 INSERT IGNORE INTO DemandeAjoutObjet (nomObjet, description, idUtilisateur, idSalle, status, dateDemande)
-VALUES ('tele', 'une tel pour la salle', 1, 2, 'EN_ATTENTE', NOW());
+VALUES ('tele', 'une tele pour la salle', 1, 2, 'EN_ATTENTE', NOW());
