@@ -1,4 +1,4 @@
-# Biblioth-que-intelligente-ING1
+# Bibliothque-intelligente-ING1
 Projet DEV WEB ING1
 
 Pour lancer le site internet, il faut dans un premier temps lancer le fichier ProjetDevWebApplication.java à l'aide du bouton run (voir la photo):
@@ -22,5 +22,8 @@ Les pages pour le moment disponible sont :
 - La page où l'on peut voir les utilisateurs inscrient :
 
       localhost:8080/utilisateur
+
+
+  
 
   
