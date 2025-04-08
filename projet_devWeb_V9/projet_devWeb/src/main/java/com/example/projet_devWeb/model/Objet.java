@@ -1,6 +1,8 @@
 package com.example.projet_devWeb.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 public class Objet {
@@ -29,10 +31,12 @@ public class Objet {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "idUtilisateur")
+    @NotFound(action = NotFoundAction.IGNORE) // ✅ Ignore si l'utilisateur est supprimé
     private Utilisateur utilisateur;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "idUtilisateurActivant")
+    @NotFound(action = NotFoundAction.IGNORE) // ✅ Idem ici
     private Utilisateur utilisateurActivant;
 
     public Objet() {}
