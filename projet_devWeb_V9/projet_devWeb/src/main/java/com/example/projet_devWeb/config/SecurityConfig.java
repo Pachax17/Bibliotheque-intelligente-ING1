@@ -35,7 +35,10 @@ public class SecurityConfig {
                     "/verification", 
                     "/mot-de-passe-oublie", 
                     "/reinitialisation", 
-                    "/accueil", 
+                    "/accueil",
+                    "/agenda" ,
+                    "/itineraire",
+                    "/agenda.css", 
                     "/style.css", 
                     "/Objets",             // autorise /Objets
                     "/Objets/**",          // autorise aussi /Objets/quelquechose
