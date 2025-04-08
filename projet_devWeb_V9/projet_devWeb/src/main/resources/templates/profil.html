@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Utilisateur</title>
     <link rel="stylesheet" href="/profil.css">
+    <style>
+        .btn-return-home {
+            display: inline-block;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-return-home:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -13,7 +34,6 @@
         <button class="edit-btn" onclick="toggleEdit()">Modifier</button>
     </div>
 
-    <!-- ✅ Message de confirmation après demande de rôle -->
     <div th:if="${param.demandeEnvoyee}" class="success-message" style="background-color: #d4edda; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
         🎉 Votre demande pour devenir utilisateur Avancé a bien été envoyée à l'administrateur.
     </div>
@@ -25,7 +45,6 @@
         <button class="tab" onclick="setActiveTab('nouveaute')">Nouveautés</button>
     </div>
 
-    <!-- Onglet Informations personnelles -->
     <div id="info" class="tab-content active">
         <div id="info-view">
             <h2>Mes informations</h2>
@@ -46,7 +65,6 @@
                 <p th:text="${activationsAujourdHui + '/10'}">0/10</p>
             </div>
 
-            <!-- BARRE D'XP -->
             <div class="form-group">
                 <label>Points</label>
                 <div style="position: relative; background: #e0e0e0; border-radius: 10px; height: 25px; width: 100%; margin-bottom: 10px;">
@@ -54,14 +72,12 @@
                     <span style="position: absolute; width: 100%; text-align: center; line-height: 25px; font-weight: bold;" th:text="${points + ' / 100'}">0 / 100</span>
                 </div>
 
-                <!-- ✅ Formulaire de demande de rôle avancé -->
                 <div th:if="${peutDemanderRoleAvance}">
                     <form th:action="@{/demander-role-avance}" method="post">
                         <button type="submit" class="btn-unified">🚀 Demander le rôle Avancé</button>
                     </form>
                 </div>
 
-                <!-- 🎉 Déjà avancé -->
                 <div th:if="${utilisateur.role.name() == 'AVANCE'}">
                     <p>🎉 Vous êtes déjà utilisateur Avancé ! Continuez à cumuler vos points.</p>
                 </div>
@@ -73,29 +89,32 @@
                 </a>
             </div>
 
-            <!-- 🔐 Changement de mot de passe -->
-            <div class="password-section">
-                <div class="toggle-password" onclick="togglePasswordForm()">Changer le mot de passe</div>
-                <form id="passwordForm" class="password-form" style="display: none;">
-                    <div class="form-group">
-                        <label>Ancien mot de passe</label>
-                        <input type="password" id="oldPassword" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Nouveau mot de passe</label>
-                        <input type="password" id="newPassword" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Confirmer le mot de passe</label>
-                        <input type="password" id="confirmPassword" required>
-                        <div class="error-message" id="passwordError" style="display: none;">Les mots de passe ne correspondent pas</div>
-                    </div>
-                    <button type="submit">Mettre à jour</button>
-                </form>
+            <!-- 🔐 Changement de mot de passe + retour -->
+            <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 25px;">
+                <div class="toggle-password" onclick="togglePasswordForm()" style="color: #e60050; cursor: pointer;">
+                    🔒 Changer le mot de passe
+                </div>
+                <a href="/accueil" class="btn-return-home">🏠 Retour à l'accueil</a>
             </div>
+
+            <form id="passwordForm" class="password-form" style="display: none;">
+                <div class="form-group">
+                    <label>Ancien mot de passe</label>
+                    <input type="password" id="oldPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>Nouveau mot de passe</label>
+                    <input type="password" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirmer le mot de passe</label>
+                    <input type="password" id="confirmPassword" required>
+                    <div class="error-message" id="passwordError" style="display: none;">Les mots de passe ne correspondent pas</div>
+                </div>
+                <button type="submit">Mettre à jour</button>
+            </form>
         </div>
 
-        <!-- ✏️ Édition des infos -->
         <div id="info-edit" style="display: none;">
             <h2>Modifier mes informations</h2>
             <form>
@@ -112,7 +131,6 @@
         </div>
     </div>
 
-    <!-- Onglet Statut -->
     <div id="status" class="tab-content">
         <h2>Statut du compte</h2>
         <div class="form-group">
@@ -122,7 +140,6 @@
         <a href="/profil/historique" class="btn-unified" style="margin-top: 20px;">🕒 Voir l’historique des objets</a>
     </div>
 
-    <!-- Onglet Réservation -->
     <div id="reservation" class="tab-content">
         <h2>Réservations en cours</h2>
         <table>
@@ -139,7 +156,6 @@
         </table>
     </div>
 
-    <!-- Onglet Nouveautés -->
     <div id="nouveaute" class="tab-content">
         <h2>Nouveautés</h2>
         <div class="form-group">
@@ -149,8 +165,6 @@
         </div>
     </div>
 </div>
-
-<a href="/accueil" class="btn-unified" style="margin-top: 20px;">← Retour à l'accueil</a>
 
 <script>
     function setActiveTab(tabId) {
