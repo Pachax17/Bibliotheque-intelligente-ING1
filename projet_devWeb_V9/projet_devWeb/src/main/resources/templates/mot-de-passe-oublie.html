@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mot de passe oublié</title>
+</head>
+<body>
+<h2>Mot de passe oublié</h2>
+
+<form th:action="@{/mot-de-passe-oublie}" method="post">
+    <label>Email :</label>
+    <input type="email" name="email" required />
+    <button type="submit">Envoyer lien</button>
+</form>
+
+<a href="/connexion">← Retour à la connexion</a>
+</body>
+</html>

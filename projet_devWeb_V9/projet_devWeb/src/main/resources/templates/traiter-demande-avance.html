@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Traiter les demandes Avancées</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>🚀 Demandes de passage au rôle Avancé</h1>
+
+    <div th:if="${#lists.isEmpty(demandesAvance)}">
+        <p>Aucune demande en attente.</p>
+    </div>
+
+    <table th:if="${!#lists.isEmpty(demandesAvance)}">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Points</th>
+                <th>Date de demande</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="demande : ${demandesAvance}">
+                <td th:text="${demande.utilisateur.prenom + ' ' + demande.utilisateur.nom}">Jean Dupont</td>
+                <td th:text="${demande.utilisateur.email}">email@example.com</td>
+                <td th:text="${demande.utilisateur.points}">120</td>
+                <td th:text="${#temporals.format(demande.dateDemande, 'dd/MM/yyyy HH:mm')}">01/01/2025 14:30</td>
+                <td>
+                    <form th:action="@{'/administrateur/traiter-demande-avance/' + ${demande.id} + '/accepter'}" method="post" style="display:inline;">
+                        <button type="submit">✅ Accepter</button>
+                    </form>
+                    <form th:action="@{'/administrateur/traiter-demande-avance/' + ${demande.id} + '/refuser'}" method="post" style="display:inline;">
+                        <button type="submit">❌ Refuser</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/administrateur" class="btn-unified">← Retour à l'administration</a>
+</div>
+</body>
+</html>

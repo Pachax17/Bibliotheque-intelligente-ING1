@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Historique des Objets Activés</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 24px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            font-weight: bold;
+        }
+
+        .btn-unified {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-unified:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📜 Historique des objets activés</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Objet</th>
+                <th>Salle</th>
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Durée</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="log : ${historique}">
+                <td th:text="${log.objet.nom}">Objet</td>
+                <td th:text="${log.objet.salle != null ? log.objet.salle.nom : 'Non attribuée'}">Salle</td>
+                <td th:text="${#temporals.format(log.dateDebut, 'dd/MM/yyyy HH:mm')}">Début</td>
+                <td th:text="${log.dateFin != null ? #temporals.format(log.dateFin, 'dd/MM/yyyy HH:mm') : 'En cours'}">Fin</td>
+                <td th:if="${log.duree != null}"
+                    th:text="${#strings.replace(#strings.replace(log.duree.toString(), 'PT', ''), 'H', 'h ').replace('M', 'm ').replace('S', 's')}">
+                    Durée
+                </td>
+                <td th:unless="${log.duree != null}">-</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/profil" class="btn-unified">← Retour au profil</a>
+</div>
+</body>
+</html>

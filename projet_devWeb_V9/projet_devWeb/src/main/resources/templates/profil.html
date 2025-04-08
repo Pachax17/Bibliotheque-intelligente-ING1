@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Utilisateur</title>
+    <link rel="stylesheet" href="/profil.css">
+</head>
+<body>
+<div class="container">
+    <div class="profile-header">
+        <h1 th:text="${utilisateur.prenom + ' ' + utilisateur.nom}">Nom Prénom</h1>
+        <button class="edit-btn" onclick="toggleEdit()">Modifier</button>
+    </div>
+
+    <!-- ✅ Message de confirmation après demande de rôle -->
+    <div th:if="${param.demandeEnvoyee}" class="success-message" style="background-color: #d4edda; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        🎉 Votre demande pour devenir utilisateur Avancé a bien été envoyée à l'administrateur.
+    </div>
+
+    <div class="tabs">
+        <button class="tab active" onclick="setActiveTab('info')">Informations personnelles</button>
+        <button class="tab" onclick="setActiveTab('status')">Statut du compte</button>
+        <button class="tab" onclick="setActiveTab('reservation')">Réservations</button>
+        <button class="tab" onclick="setActiveTab('nouveaute')">Nouveautés</button>
+    </div>
+
+    <!-- Onglet Informations personnelles -->
+    <div id="info" class="tab-content active">
+        <div id="info-view">
+            <h2>Mes informations</h2>
+            <div class="form-group">
+                <label>Nom complet</label>
+                <p th:text="${utilisateur.prenom + ' ' + utilisateur.nom}">Nom Prénom</p>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <p th:text="${utilisateur.email}">email@example.com</p>
+            </div>
+            <div class="form-group">
+                <label>Connexions aujourd’hui</label>
+                <p th:text="${connexionsAujourdHui + '/10'}">0/10</p>
+            </div>
+            <div class="form-group">
+                <label>Activations aujourd’hui</label>
+                <p th:text="${activationsAujourdHui + '/10'}">0/10</p>
+            </div>
+
+            <!-- BARRE D'XP -->
+            <div class="form-group">
+                <label>Points</label>
+                <div style="position: relative; background: #e0e0e0; border-radius: 10px; height: 25px; width: 100%; margin-bottom: 10px;">
+                    <div th:style="'background: linear-gradient(90deg, #4CAF50, #81C784); width:' + ${points} + '%; max-width: 100%; height: 100%; border-radius: 10px;'"></div>
+                    <span style="position: absolute; width: 100%; text-align: center; line-height: 25px; font-weight: bold;" th:text="${points + ' / 100'}">0 / 100</span>
+                </div>
+
+                <!-- ✅ Formulaire de demande de rôle avancé -->
+                <div th:if="${peutDemanderRoleAvance}">
+                    <form th:action="@{/demander-role-avance}" method="post">
+                        <button type="submit" class="btn-unified">🚀 Demander le rôle Avancé</button>
+                    </form>
+                </div>
+
+                <!-- 🎉 Déjà avancé -->
+                <div th:if="${utilisateur.role.name() == 'AVANCE'}">
+                    <p>🎉 Vous êtes déjà utilisateur Avancé ! Continuez à cumuler vos points.</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <a href="/profil/historique" class="btn-unified" style="margin-top: 15px;">
+                    📜 Voir mon historique d'activations
+                </a>
+            </div>
+
+            <!-- 🔐 Changement de mot de passe -->
+            <div class="password-section">
+                <div class="toggle-password" onclick="togglePasswordForm()">Changer le mot de passe</div>
+                <form id="passwordForm" class="password-form" style="display: none;">
+                    <div class="form-group">
+                        <label>Ancien mot de passe</label>
+                        <input type="password" id="oldPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nouveau mot de passe</label>
+                        <input type="password" id="newPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmer le mot de passe</label>
+                        <input type="password" id="confirmPassword" required>
+                        <div class="error-message" id="passwordError" style="display: none;">Les mots de passe ne correspondent pas</div>
+                    </div>
+                    <button type="submit">Mettre à jour</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ✏️ Édition des infos -->
+        <div id="info-edit" style="display: none;">
+            <h2>Modifier mes informations</h2>
+            <form>
+                <div class="form-group">
+                    <label>Nom</label>
+                    <input type="text" th:value="${utilisateur.nom}">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" th:value="${utilisateur.email}">
+                </div>
+                <button type="submit">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Onglet Statut -->
+    <div id="status" class="tab-content">
+        <h2>Statut du compte</h2>
+        <div class="form-group">
+            <label>Type d'utilisateur</label>
+            <p th:text="${utilisateur.role}">Visiteur</p>
+        </div>
+        <a href="/profil/historique" class="btn-unified" style="margin-top: 20px;">🕒 Voir l’historique des objets</a>
+    </div>
+
+    <!-- Onglet Réservation -->
+    <div id="reservation" class="tab-content">
+        <h2>Réservations en cours</h2>
+        <table>
+            <tr>
+                <th>Titre</th>
+                <th>Date de réservation</th>
+                <th>Disponibilité</th>
+            </tr>
+            <tr>
+                <td>exemple de livre</td>
+                <td>2023-07-01</td>
+                <td>Disponible le 2023-07-10</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Onglet Nouveautés -->
+    <div id="nouveaute" class="tab-content">
+        <h2>Nouveautés</h2>
+        <div class="form-group">
+            <p>🎉 Fonctionnalité "Historique" ajoutée.</p>
+            <p>💡 Ajout d'une interface d'édition.</p>
+            <p>🔒 Système de changement de mot de passe en place.</p>
+        </div>
+    </div>
+</div>
+
+<a href="/accueil" class="btn-unified" style="margin-top: 20px;">← Retour à l'accueil</a>
+
+<script>
+    function setActiveTab(tabId) {
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        document.querySelector(`[onclick="setActiveTab('${tabId}')"]`).classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    }
+
+    function toggleEdit() {
+        const view = document.getElementById('info-view');
+        const edit = document.getElementById('info-edit');
+        const btn = document.querySelector('.edit-btn');
+        if (view.style.display === 'none') {
+            view.style.display = 'block';
+            edit.style.display = 'none';
+            btn.textContent = 'Modifier';
+        } else {
+            view.style.display = 'none';
+            edit.style.display = 'block';
+            btn.textContent = 'Annuler';
+        }
+    }
+
+    function togglePasswordForm() {
+        const form = document.getElementById('passwordForm');
+        const toggleBtn = document.querySelector('.toggle-password');
+        if (form.style.display === 'none' || !form.style.display) {
+            form.style.display = 'block';
+            toggleBtn.textContent = 'Masquer le changement de mot de passe';
+        } else {
+            form.style.display = 'none';
+            toggleBtn.textContent = 'Changer le mot de passe';
+        }
+    }
+
+    document.getElementById('passwordForm').addEventListener('submit', function(e) {
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const errorMessage = document.getElementById('passwordError');
+
+        if (newPassword !== confirmPassword) {
+            e.preventDefault();
+            errorMessage.style.display = 'block';
+            document.getElementById('confirmPassword').style.borderColor = '#e60050';
+        } else {
+            errorMessage.style.display = 'none';
+            document.getElementById('confirmPassword').style.borderColor = '#ddd';
+            alert('Mot de passe mis à jour avec succès !');
+        }
+    });
+
+    document.getElementById('confirmPassword').addEventListener('input', function () {
+        document.getElementById('passwordError').style.display = 'none';
+        this.style.borderColor = '#ddd';
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail de l’objet</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+        .control-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .control-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .control-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            font-size: 20px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+        .control-value {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .control-label {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body class="bodyGarde">
+
+<div class="headerGarde">
+    <h1>🔎 Détail de l’objet</h1>
+</div>
+
+<div class="contentGarde">
+    <div class="admin-card">
+        <h2 th:text="${objet.nom}">Nom</h2>
+
+        <p><strong>Description :</strong> <span th:text="${objet.description}">Description</span></p>
+        <p><strong>Salle :</strong>
+            <span th:if="${objet.salle != null}" th:text="${objet.salle.nom}">Salle</span>
+            <span th:unless="${objet.salle != null}">Non attribuée</span>
+        </p>
+        <p><strong>Type :</strong> <span th:text="${objet.type}">Type</span></p>
+
+        <p>
+            <strong>État :</strong>
+            <span th:if="${objet.actif}" style="color: green;">✅ Activé</span>
+            <span th:unless="${objet.actif}" style="color: red;">⛔ Désactivé</span>
+        </p>
+
+        <!-- 🌡️ Température -->
+        <div class="control-section" th:if="${objet.type == 'Temperature'}">
+            <div th:if="${objet.actif and (objet.utilisateurActivant == null or #authentication == null or objet.utilisateurActivant.email == #authentication.name)}">
+                <form th:action="@{'/Objets/' + ${objet.id} + '/temperature'}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <div class="control-buttons">
+                        <button type="submit" name="valeur" th:value="${objet.temperature != null ? objet.temperature - 0.1 : 0}" class="control-btn">-</button>
+                        <div class="control-value"
+                             th:text="${objet.temperature != null} ? ${#numbers.formatDecimal(objet.temperature, 1, 'POINT', 1, 'POINT')} + '°C' : '--°C'">
+                            --°C
+                        </div>
+                        <button type="submit" name="valeur" th:value="${objet.temperature != null ? objet.temperature + 0.1 : 0}" class="control-btn">+</button>
+                    </div>
+                    <div class="control-label">Réglez la température</div>
+                </form>
+            </div>
+            <div th:unless="${objet.actif and (objet.utilisateurActivant == null or #authentication == null or objet.utilisateurActivant.email == #authentication.name)}">
+                <div class="control-value"
+                     th:text="${objet.temperature != null} ? 'Température actuelle : ' + ${#numbers.formatDecimal(objet.temperature, 1, 'POINT', 1, 'POINT')} + '°C' : 'Température actuelle : --°C'">
+                    --°C
+                </div>
+            </div>
+        </div>
+
+        <!-- 💡 Lumière -->
+        <div class="control-section" th:if="${objet.type == 'Lumiere'}">
+            <div th:if="${objet.actif and (objet.utilisateurActivant == null or #authentication == null or objet.utilisateurActivant.email == #authentication.name)}">
+                <form th:action="@{'/Objets/' + ${objet.id} + '/luminosite'}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <div class="control-buttons">
+                        <button type="submit" name="valeur" th:value="${objet.intensiteLuminosite != null ? objet.intensiteLuminosite - 1 : 0}" class="control-btn">-</button>
+                        <div class="control-value" th:text="${objet.intensiteLuminosite != null ? objet.intensiteLuminosite + '%' : '--%'}">--%</div>
+                        <button type="submit" name="valeur" th:value="${objet.intensiteLuminosite != null ? objet.intensiteLuminosite + 1 : 0}" class="control-btn">+</button>
+                    </div>
+                    <div class="control-label">Réglez l'intensité lumineuse</div>
+                </form>
+            </div>
+            <div th:unless="${objet.actif and (objet.utilisateurActivant == null or #authentication == null or objet.utilisateurActivant.email == #authentication.name)}">
+                <div class="control-value" th:text="${objet.intensiteLuminosite != null} ? 'Intensité lumineuse : ' + ${objet.intensiteLuminosite} + '%' : 'Intensité lumineuse : --%'">--%</div>
+            </div>
+        </div>
+
+        <!-- 🎥 Visuel -->
+        <div class="control-section" th:if="${objet.type == 'Visuel'}">
+            <div th:if="${objet.actif and (objet.utilisateurActivant == null or #authentication == null or objet.utilisateurActivant.email == #authentication.name)}">
+                <form th:action="@{'/Objets/' + ${objet.id} + '/visuel'}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <div class="control-buttons">
+                        <button type="submit" name="valeur" th:value="${objet.luminosite != null ? objet.luminosite - 1 : 0}" class="control-btn">-</button>
+                        <div class="control-value" th:text="${objet.luminosite != null ? objet.luminosite + '%' : '--%'}">--%</div>
+                        <button type="submit" name="valeur" th:value="${objet.luminosite != null ? objet.luminosite + 1 : 0}" class="control-btn">+</button>
+                    </div>
+                    <div class="control-label">Réglez la luminosité de l'affichage</div>
+                </form>
+            </div>
+            <div th:unless="${objet.actif and (objet.utilisateurActivant == null or #authentication == null or objet.utilisateurActivant.email == #authentication.name)}">
+                <div class="control-value" th:text="${objet.luminosite != null} ? 'Luminosité actuelle : ' + ${objet.luminosite} + '%' : 'Luminosité actuelle : --%'">--%</div>
+            </div>
+        </div>
+
+        <!-- ⚡ Activation -->
+        <form th:action="@{'/Objets/' + ${objet.id} + '/etat'}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <div th:if="${objet.actif}">
+                <div th:if="${objet.utilisateurActivant == null or #authentication == null or objet.utilisateurActivant.email == #authentication.name}">
+                    <input type="hidden" name="actif" value="false" />
+                    <button type="submit" class="connect-btn">❌ Désactiver</button>
+                </div>
+                <p th:unless="${objet.utilisateurActivant == null or #authentication == null or objet.utilisateurActivant.email == #authentication.name}" style="font-style: italic;">
+                    Cet objet est activé par un autre utilisateur.
+                </p>
+            </div>
+            <div th:if="${!objet.actif}">
+                <input type="hidden" name="actif" value="true" />
+                <button type="submit" class="connect-btn">⚡ Activer</button>
+            </div>
+        </form>
+
+        <!-- ✏️ Modifier -->
+        <div th:if="${#authorization.expression('hasAuthority(''AVANCE'')')}">
+            <a th:href="@{'/Objets/' + ${objet.id} + '/modifier'}" class="connect-btn">✏️ Modifier cet objet</a>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a href="/Objets" class="connect-btn">⬅ Retour à la liste</a>
+    </div>
+</div>
+
+</body>
+</html>

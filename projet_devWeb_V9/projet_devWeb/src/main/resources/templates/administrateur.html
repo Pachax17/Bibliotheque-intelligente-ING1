@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Espace Administrateur</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        .admin-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .admin-title {
+            margin-bottom: 40px;
+        }
+
+        .admin-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .admin-card {
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            padding: 20px;
+            width: 300px;
+            cursor: pointer;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+
+        .admin-card:hover {
+            background-color: #eaeaea;
+        }
+
+        .admin-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .admin-subcard {
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .admin-link-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #e60050;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .admin-link-btn:hover {
+            background-color: #c00c39;
+        }
+
+        .admin-home-link {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 10px 18px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .admin-home-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="admin-container">
+    <h1 class="admin-title">👮‍♂️ Tableau de Bord Administrateur</h1>
+
+    <div class="admin-grid">
+        <!-- 👥 Gérer les Utilisateurs -->
+        <a href="/utilisateur" style="text-decoration: none; color: inherit;">
+            <div class="admin-card">
+                <h3>📋 Gérer les Utilisateurs</h3>
+                <p>Afficher, modifier ou supprimer les comptes utilisateurs</p>
+            </div>
+        </a>
+
+        <!-- 🔧 Gérer les Objets -->
+        <div class="admin-card">
+            <h3>🔧 Gestion Objets</h3>
+
+            <div class="admin-subcard">
+                <p>📥 Demandes d’ajout</p>
+                <a href="/administrateur/demandes-objets" class="admin-link-btn">Voir les demandes</a>
+            </div>
+
+            <div class="admin-subcard">
+                <p>🚰 Modifier ou supprimer</p>
+                <a href="/administrateur/GestionObjet" class="admin-link-btn">Gérer les objets</a>
+            </div>
+        </div>
+
+        <!-- 🏛 Gérer les Lieux -->
+        <a href="/administrateur/lieux" style="text-decoration: none; color: inherit;">
+            <div class="admin-card">
+                <h3>🏛 Gérer les Lieux</h3>
+                <p>Ajouter une nouvelle salle à la bibliothèque</p>
+            </div>
+        </a>
+
+        <!-- 🚀 Demandes de Rôle Avancé -->
+        <a href="/administrateur/traiter-demande-avance" style="text-decoration: none; color: inherit;">
+            <div class="admin-card">
+                <h3>🚀 Rôles Avancés</h3>
+                <p>Voir et valider les demandes pour devenir utilisateur avancé</p>
+            </div>
+        </a>
+    </div>
+
+    <!-- 🏠 Lien retour à l’accueil -->
+    <div>
+        <a href="/accueil" class="admin-home-link">🏠 Retour à l’accueil</a>
+    </div>
+</div>
+</body>
+</html>

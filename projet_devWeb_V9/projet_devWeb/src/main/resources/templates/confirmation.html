@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Validation du compte</title>
+    <meta http-equiv="refresh" content="3;url=/connexion">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        p {
+            margin-top: 20px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h2 th:text="${message}">Message de confirmation</h2>
+    <p>Redirection vers la page de connexion dans 3 secondes...</p>
+</body>
+</html>

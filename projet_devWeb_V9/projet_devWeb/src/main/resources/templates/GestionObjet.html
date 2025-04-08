@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Objets</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .admin-container {
+            max-width: 900px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .admin-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            margin: 5px 0;
+            cursor: pointer;
+            background-color: #e60050;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            width: 100px;
+        }
+
+        .btn:hover {
+            background-color: #c2003d;
+        }
+
+        .btn-danger {
+            background-color: #bb2d3b;
+        }
+
+        .btn-danger:hover {
+            background-color: #a51d2a;
+        }
+
+        .btn-retour {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 30px;
+        }
+
+        .btn-retour:hover {
+            background-color: #0056b3;
+        }
+
+        .retour-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="admin-container">
+    <h1 class="admin-title">🧰 Gestion des Objets</h1>
+
+    <h2>Liste des Objets</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Salle</th>
+            <th>Ajouté par</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="objet : ${objets}">
+            <td th:text="${objet.id}"></td>
+            <td th:text="${objet.nom}"></td>
+            <td>
+                <span th:if="${objet.salle != null}" th:text="${objet.salle.nom}">Salle</span>
+                <span th:unless="${objet.salle != null}">Non attribuée</span>
+            </td>
+            <td>
+                <span th:if="${objet.utilisateur != null}" th:text="${objet.utilisateur.email}">Email</span>
+                <span th:unless="${objet.utilisateur != null}">Non disponible</span>
+            </td>
+            <td class="btn-actions">
+                <a th:href="@{'/administrateur/objet/' + ${objet.id} + '/modifier'}" class="btn">✏️ Modifier</a>
+                <form th:action="@{'/administrateur/objet/' + ${objet.id} + '/supprimer'}" method="post">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Supprimer cet objet ?')">🗑 Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="retour-container">
+        <a href="/administrateur" class="btn-retour">← Retour au tableau de bord</a>
+    </div>
+</div>
+</body>
+</html>
