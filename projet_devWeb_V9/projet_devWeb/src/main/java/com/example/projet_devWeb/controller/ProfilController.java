@@ -5,10 +5,10 @@ import com.example.projet_devWeb.model.Utilisateur;
 import com.example.projet_devWeb.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -30,7 +30,9 @@ public class ProfilController {
     @Autowired
     private DemandeRoleService demandeRoleService;
 
-    // 🔄 Page de profil
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping("/profil")
     public String afficherProfil(Model model, Principal principal) {
         if (principal != null) {
@@ -51,7 +53,6 @@ public class ProfilController {
         return "redirect:/connexion";
     }
 
-    // 🚀 Demande rôle AVANCÉ
     @PostMapping("/demander-role-avance")
     public String demanderRoleAvance(Principal principal) {
         if (principal != null) {
@@ -69,13 +70,52 @@ public class ProfilController {
         return "redirect:/profil?demandeEnvoyee";
     }
 
-    // 📜 Historique d’activations
     @GetMapping("/profil/historique")
     public String afficherHistoriqueUtilisateur(Model model, Principal principal) {
         if (principal != null) {
             Utilisateur utilisateur = utilisateurService.trouverParEmail(principal.getName());
             model.addAttribute("historique", historiqueService.findByUtilisateur(utilisateur));
             return "profil-historique";
+        }
+        return "redirect:/connexion";
+    }
+
+    // 🔄 Modifier profil
+    @PostMapping("/profil/modifier")
+    public String modifierProfil(Principal principal,
+                                 @RequestParam String prenom,
+                                 @RequestParam String nom,
+                                 @RequestParam String email) {
+        if (principal != null) {
+            Utilisateur utilisateur = utilisateurService.trouverParEmail(principal.getName());
+
+            utilisateur.setPrenom(prenom);
+            utilisateur.setNom(nom);
+            utilisateur.setEmail(email);
+
+            utilisateurService.sauvegarder(utilisateur);
+
+            return "redirect:/profil?modif=success";
+        }
+        return "redirect:/connexion";
+    }
+
+    // 🔐 Changer le mot de passe
+    @PostMapping("/profil/mot-de-passe")
+    public String changerMotDePasse(Principal principal,
+                                    @RequestParam String oldPassword,
+                                    @RequestParam String newPassword,
+                                    Model model) {
+        if (principal != null) {
+            Utilisateur utilisateur = utilisateurService.trouverParEmail(principal.getName());
+
+            if (passwordEncoder.matches(oldPassword, utilisateur.getMotDePasse())) {
+                utilisateur.setMotDePasse(passwordEncoder.encode(newPassword));
+                utilisateurService.sauvegarder(utilisateur);
+                return "redirect:/profil?mdpModifie";
+            } else {
+                return "redirect:/profil?erreurMotDePasse";
+            }
         }
         return "redirect:/connexion";
     }
